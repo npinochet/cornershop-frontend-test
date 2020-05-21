@@ -1,22 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-// You don't have to use `fetch` btw, use whatever you want
-const getCounters = () => 
-  fetch('/api/v1/counter', { method: 'get' })
-    .then(res => res.json());
-
-const App = () => {
-  React.useEffect(() => {
-    getCounters().then(console.log, console.error);
-  }, []);
-
-  return (
-    <h1>Hello, Cornershop!</h1>
-  );
-};
+import App from './App';
+import store from './store';
+import './style.css';
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+  <Provider store={store()}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
+  document.getElementById('root'),
 );

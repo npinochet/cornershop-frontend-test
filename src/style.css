@@ -1,0 +1,47 @@
+/* Global Style */
+
+html, body {
+  margin: 0px;
+}
+
+#root {
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  height: 100%;
+}
+
+p, span {
+  font-family: Avenir Next;
+  color: #000000;
+  text-align: center;
+  font-size: 17px;
+}
+
+p.title {
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 30px;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.around {
+  align-items: center;
+  justify-content: space-around;
+}
+
+.evenly {
+  align-items: center;
+  justify-content: space-evenly;
+}

@@ -1,5 +1,13 @@
 # Cornershop Frontend Test
 
+## Personal Observations:
+
+* I based my project structure on [this article](https://www.robinwieruch.de/react-folder-structure), with some tweaks. Basically I'm trying to keep everyhting related to a component in it's own folder.
+
+* I used plain old css and Flexbox since that's what I'm used to. There is a main stylesheet in 'src' and local stylesheets with every component. I may use some inline styles if it's something minor, since it's more practical.
+
+* I used Redux to keep the main state of the app, and to make API calls, because that's what I'm used to, also I think it works well enough.
+
 #### ⚠️ Before you begin
 
 > Create a new git repository on the root of this folder, upload it to Github, and invite [@RoHerrera](https://github.com/RoHerrera) and [@varellanov](https://github.com/varellanov) as collaborators.
