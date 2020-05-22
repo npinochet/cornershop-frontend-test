@@ -49,8 +49,8 @@ hr {
 }
 
 .center {
-  align-items: center;
-  justify-content: center;
+  align-items: safe center;
+  justify-content: safe center;
 }
 
 .around {

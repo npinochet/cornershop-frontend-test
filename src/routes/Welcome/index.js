@@ -14,6 +14,10 @@ const styles = {
 }
 
 class Welcome extends Component {
+  handleAdd = e => {
+
+  }
+
   render() {
     return (
       <div className='container evenly column' style={styles.background}>

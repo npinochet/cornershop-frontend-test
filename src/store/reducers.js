@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import main from '../routes/Main/reducer';
 import searchBar from '../components/SearchBar/reducer';
 import addBar from '../components/AddBar/reducer';
+import addModal from '../components/AddModal/reducer';
 
 const initialState = {
   isFetching: false,
@@ -32,4 +33,5 @@ export default combineReducers({
   main,
   searchBar,
   addBar,
+  addModal,
 });
