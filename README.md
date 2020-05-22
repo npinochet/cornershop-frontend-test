@@ -1,5 +1,9 @@
 # Cornershop Frontend Test
 
+#### ⚠️ Before you begin
+
+> Create a new git repository on the root of this folder, upload it to Github, and invite [@RoHerrera](https://github.com/RoHerrera) and [@varellanov](https://github.com/varellanov) as collaborators.
+
 ## Personal Observations:
 
 * I based my project structure on [this article](https://www.robinwieruch.de/react-folder-structure), with some tweaks. Basically I'm trying to keep everyhting related to a component in it's own folder.
@@ -8,9 +12,7 @@
 
 * I used Redux to keep the main state of the app, and to make API calls, because that's what I'm used to, also I think it works well enough.
 
-#### ⚠️ Before you begin
-
-> Create a new git repository on the root of this folder, upload it to Github, and invite [@RoHerrera](https://github.com/RoHerrera) and [@varellanov](https://github.com/varellanov) as collaborators.
+* I made most of my commits on 'master' with simple messages, since git practices like Git Flow are meant to be use with teams where a lot of cocurrent code is being written.
 
 ## Overview
 

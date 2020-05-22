@@ -10,7 +10,7 @@ class Button extends Component {
   }
 
   render() {
-    const { disabled, children, white, loading, type, ...rest } = this.props
+    const { disabled, children, white, loading, type, textProps,  ...rest } = this.props
 
     let buttonClass = "button" + (white ? " button-white" : "")
     let spanClass = "button-span" + (white ? " button-span-white" : "")
@@ -23,7 +23,7 @@ class Button extends Component {
         onClick={this.onClick}
         type={type}
       >
-        <span className={spanClass}>
+        <span {...textProps} className={spanClass}>
           {children}
         </span>
       </button>
@@ -35,6 +35,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   type: PropTypes.string,
+  textProps: PropTypes.object,
   white: PropTypes.bool,
   loading: PropTypes.bool,
   children: PropTypes.node.isRequired,

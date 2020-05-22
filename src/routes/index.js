@@ -1,17 +1,13 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
 import { Switch } from 'react-router';
-import Loading from '../components/Loading';
 
-const Welcome = React.lazy(() => import('./Welcome'))
-
-const NotFound = React.lazy(() => import('./NotFound'))
+import Welcome from './Welcome';
+import Main from './Main';
 
 export default () => (
-  <Suspense fallback={<Loading />}>
-    <Switch>
-      <Route path="/" component={Welcome} />
-      <Route component={NotFound} />
-    </Switch>
-  </Suspense>
+  <Switch>
+    <Route exact path="/" component={Welcome} />
+    <Route exact path="/main" component={Main} />
+  </Switch>
 );

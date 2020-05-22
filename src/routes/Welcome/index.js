@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 import Button from '../../components/Button';
 import { ReactComponent as Icon } from '../../assets/icon.svg';
@@ -22,8 +23,10 @@ class Welcome extends Component {
         <div style={styles.text}>
           <p className='title'>Welcome to Counters</p>
           <p>Capture cups of lattes, frapuccinos, or anything else that can be counted.</p>
-        </div>
-        <Button>Get Started</Button>
+        </div>    
+        <Link to="/main">
+          <Button>Get Started</Button>
+        </Link>
       </div>
     )
   }

@@ -1,14 +1,14 @@
 const isProduction = process.env.NODE_ENV === 'production'
 const baseUrl = isProduction ? process.env.REACT_APP_API_URL : 'http://localhost:3001'
 
-const fetchWithTimeout = (url, options, timeout = 7000) => {(
+const fetchWithTimeout = (url, options, timeout = 7000) => (
   Promise.race([
     fetch(url, options),
     new Promise((_, reject) =>
       setTimeout(() => reject(new Error('timeout')), timeout)
     )
   ])
-)}
+)
 
 const fetchMiddleware = store => next => async action => {
   if (!action.fetch) return next(action)
@@ -41,7 +41,7 @@ const fetchMiddleware = store => next => async action => {
     const payload = {
       ok: response.ok,
       status: response.status,
-      body: response.json(),
+      body: await response.json(),
       headers: response.headers,
     };
     const responseType = response.ok ? `${type}_SUCCESS` : `${type}_FAILURE`

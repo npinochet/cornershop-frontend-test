@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Content from './routes';
 
+import SearchBar from './components/SearchBar';
+import AddBar from './components/AddBar';
+
 const App = () => (
-  <Content />
+  <Fragment>
+    <SearchBar />
+    <Content />
+    <AddBar />
+  </Fragment>
 );
 
 export default (App);

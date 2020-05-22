@@ -3,7 +3,7 @@ import thunkMiddleware from 'redux-thunk';
 import logger from 'redux-logger';
 
 import fetchMiddleware from './fetchMiddleware';
-//import reducer from './reducers';
+import reducer from './reducers';
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -16,7 +16,7 @@ if (!isProduction) middlewares.push(logger)
 
 export default () => (
   createStore(
-    (state) => (state),//reducer,
+    reducer,
     applyMiddleware(...middlewares)
   )
 );
