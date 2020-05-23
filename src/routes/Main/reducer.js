@@ -1,5 +1,6 @@
 import {
   MAIN_FETCH_COUNTERS,
+  MAIN_ADD_COUNTER,
 } from './actions';
 
 const initialState = {
@@ -23,6 +24,15 @@ switch (type) {
     return {
       ...state,
       error: payload.error,
+    };
+  }
+  case MAIN_ADD_COUNTER: {
+    return {
+      ...state,
+      counters: [
+        ...state.counters,
+        payload.counter,
+      ]
     };
   }
   default: return state

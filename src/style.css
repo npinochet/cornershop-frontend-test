@@ -4,7 +4,15 @@ html, body {
   margin: 0px;
 }
 
-a, a:focus, a:hover, a:visited, a:link, a:active {
+a {
+  color: #4a4a4a;
+}
+
+a:hover {
+  color: #2a2a2a;
+}
+
+a.no-link {
   text-decoration: none;
 }
 
@@ -29,6 +37,14 @@ p.title {
   font-size: 22px;
   line-height: 30px;
   margin: 22px 0px;
+}
+
+p.small {
+  color: #888B90;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: start;
+  margin: 9px 0px;
 }
 
 hr {
@@ -61,4 +77,29 @@ hr {
 .evenly {
   align-items: center;
   justify-content: space-evenly;
+}
+
+.input-content {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 8px 22px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  transition: all .2s ease;
+}
+
+input {
+  flex: 1;
+  border: none;
+  font-size: 16px;
+  text-align: start;
+  line-height: 32px;
+  color: #888B90;
+  outline: none;
+}
+
+input:focus {
+  outline-width: 0;
 }

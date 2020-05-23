@@ -14,10 +14,6 @@ const styles = {
 }
 
 class Welcome extends Component {
-  handleAdd = e => {
-
-  }
-
   render() {
     return (
       <div className='container evenly column' style={styles.background}>
@@ -28,7 +24,7 @@ class Welcome extends Component {
           <p className='title'>Welcome to Counters</p>
           <p>Capture cups of lattes, frapuccinos, or anything else that can be counted.</p>
         </div>    
-        <Link to="/main">
+        <Link to='/main' className='no-link'>
           <Button>Get Started</Button>
         </Link>
       </div>

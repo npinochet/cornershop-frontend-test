@@ -14,7 +14,7 @@ const styles = {
 }
 
 class SearchBar extends Component {
-  onClickHandle = e => {
+  handleClick = () => {
     this.input.focus()
   }
 
@@ -24,11 +24,10 @@ class SearchBar extends Component {
 
     return (
       <div className='input-container'>
-        <div className='input-content' onClick={this.onClickHandle}>
+        <div className='input-content search-input' onClick={this.handleClick}>
           <Glass style={styles.icon} />
           <input
             ref={inp => this.input = inp}
-            className='input'
             type='search'
             placeholder='Search Counters'
           />

@@ -56,3 +56,19 @@
   left: -16px;
   width: 100%;
 }
+
+.name-text {
+  font-weight: 500;
+  text-align: start;
+  margin: 21px 0px 9px 0px;
+}
+
+div.name-input {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+div.name-input:active, div.name-input:focus-within {
+  border: 1px solid #FF9500;
+}
