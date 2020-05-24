@@ -25,7 +25,7 @@ const styles = {
   },
 }
 
-class AddModal extends Component {
+class AlertModal extends Component {
   handleClose = () => {
     this.props.setAlertModal(false)
   }
@@ -57,6 +57,7 @@ class AddModal extends Component {
             <div className='container evenly'>
               {content.map(c => (
                 <Button
+                  key={c.text}
                   disabled={!show || isFetching}
                   {...c.props}
                   onClick={() => {if (c.action) this.handleDispatchAction(c)}}
@@ -72,14 +73,14 @@ class AddModal extends Component {
   }
 }
 
-AddModal.propTypes = {
+AlertModal.propTypes = {
   isFetching: PropTypes.bool,
   setAlertModal: PropTypes.func,
   dispatch: PropTypes.func,
   show: PropTypes.bool,
   title: PropTypes.string,
   message: PropTypes.string,
-  content: PropTypes.object,
+  content: PropTypes.array,
 }
 
 const mapStateToProps = state => ({
@@ -97,4 +98,4 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddModal);
+export default connect(mapStateToProps, mapDispatchToProps)(AlertModal);

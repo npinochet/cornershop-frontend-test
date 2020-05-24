@@ -4,11 +4,14 @@ import {
   MAIN_FETCH_PLUS,
   MAIN_FETCH_MINUS,
   MAIN_SELECT_COUNTER,
+  MAIN_FETCH_REMOVE,
+  MAIN_CLEAR_SELECT_COUNTER,
 } from './actions';
 
 const initialState = {
   counters: [],
   selected: [],
+  selectMode: false,
   initialFetch: false,
   update: false,
 }
@@ -39,6 +42,15 @@ switch (type) {
       counters,
     };
   }
+  case `${MAIN_FETCH_REMOVE}_SUCCESS`: {
+    const selected = state.selected.filter(cid => cid !== payload.body)
+    return {
+      ...state,
+      counters: state.counters.filter(c => c.id !== payload.body),
+      selected,
+      selectMode: selected.length > 0,
+    }
+  }
   case MAIN_ADD_COUNTER: {
     return {
       ...state,
@@ -50,15 +62,20 @@ switch (type) {
     };
   }
   case MAIN_SELECT_COUNTER: {
+    const { id, unselect } = payload
+    const selected = unselect ? state.selected.filter(cid => cid !== id) : [...state.selected, id]
     return {
       ...state,
-      update: true,
-      selected: [
-        ...state.selected,
-        payload.counter,
-      ]
+      selected,
+      selectMode: selected.length > 0,
     };
   }
+  case MAIN_CLEAR_SELECT_COUNTER:
+    return {
+      ...state,
+      selected: initialState.selected,
+      selectMode: false,
+    }
   default: return state
   }
 }

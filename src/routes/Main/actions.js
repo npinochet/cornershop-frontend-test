@@ -3,6 +3,8 @@ export const MAIN_ADD_COUNTER = 'MAIN_ADD_COUNTER';
 export const MAIN_FETCH_PLUS = 'MAIN_FETCH_PLUS';
 export const MAIN_FETCH_MINUS = 'MAIN_FETCH_MINUS';
 export const MAIN_SELECT_COUNTER = 'MAIN_SELECT_COUNTER';
+export const MAIN_CLEAR_SELECT_COUNTER = 'MAIN_CLEAR_SELECT_COUNTER';
+export const MAIN_FETCH_REMOVE = 'MAIN_FETCH_REMOVE';
 
 export const fetchCounters = debouncer => ({
   type: MAIN_FETCH_COUNTERS,
@@ -39,7 +41,26 @@ export const fetchCounterMinus = counter_id => ({
   },
 });
 
-export const selectCounter = counter => ({
+export const fetchCounterRemoveSelected = () => (dispatch, getState) => {
+  const { selected } = getState().main
+  const delAction = id => ({
+    type: MAIN_FETCH_REMOVE,
+    fetch: true,
+    url: '/api/v1/counter',
+    params: {
+      method: 'DELETE',
+      body: { id },
+    },
+  })
+
+  return Promise.resolve(selected.map(cid => dispatch(delAction(cid)))[0])
+};
+
+export const selectCounter = (counter_id, unselect) => ({
   type: MAIN_SELECT_COUNTER,
-  payload: { counter },
+  payload: { id: counter_id, unselect },
 });
+
+export const clearSelectCounter = () => ({
+  type: MAIN_SELECT_COUNTER,
+})

@@ -4,8 +4,8 @@ import {
 
 const initialState = {
   show: false,
-  title: false,
-  message: false,
+  title: '',
+  message: '',
   content: [], // [{text: 'retry', props: {white: true}, 'action': {type: ACTION_TO_DISCPATCH, ...}}, ...]
 }
 

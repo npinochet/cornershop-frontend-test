@@ -27,6 +27,7 @@ class CounterItem extends Component {
       const content = [
         {
           text: 'Retry',
+          fetch: true,
           action: fetchCounterPlus(this.props.counter.id),
         },
         {
@@ -62,12 +63,27 @@ class CounterItem extends Component {
   }
 
   render() {
-    const { counter, selected } = this.props
+    const {
+      counter,
+      selected,
+      onTouchStart,
+      onMouseDown,
+      onTouchEnd,
+      onMouseUp,
+      onMouseLeave,
+    } = this.props
 
     let contentClass = "counter-content" + (selected ? " content-selected" : "")
 
     return (
-      <div className={contentClass}>
+      <div 
+        className={contentClass}
+        onTouchStart={onTouchStart}
+        onMouseDown={onMouseDown}
+        onTouchEnd={onTouchEnd}
+        onMouseUp={onMouseUp}
+        onMouseLeave={onMouseLeave}
+      >
         <div>
           <p style={{ textAlign: 'start' }}>{counter.title}</p>
         </div>

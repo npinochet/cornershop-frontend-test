@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { fetchCounters } from './actions';
+import { fetchCounters, selectCounter } from './actions';
 import { setSearchBar } from '../../components/SearchBar/actions';
 import { setAddBar } from '../../components/AddBar/actions';
 
@@ -27,6 +27,7 @@ class MainScreen extends Component {
       message: false,
       refreshing: false,
     }
+    this.pressTimer = false
   }
 
   refreshCounters = async debouncer => {
@@ -86,8 +87,24 @@ class MainScreen extends Component {
     this.props.counters.map(i => i.count).reduce((a, b) => a + b, 0)
   )
 
+  handleCounterPress = async c => {
+    if (this.props.selectMode) {
+      await this.props.selectCounter(c.id, this.props.selected.includes(c.id))
+      return
+    }
+
+    this.pressTimer = setTimeout(() => {
+      this.props.selectCounter(c.id)
+    }, 500);
+  }
+
+  handleCounterRelease = c => {
+    if (this.props.selectMode) return
+    clearTimeout(this.pressTimer)
+  }
+
   render() {
-    const { isFetching, counters } = this.props
+    const { isFetching, counters, selected, selectMode } = this.props
     let { title, message, refreshing } = this.state
     if (isFetching) return <Loading />
 
@@ -104,22 +121,38 @@ class MainScreen extends Component {
       <div className='container' style={{ justifyContent: 'center' }}>
         <div className='container column main-content'>
           <div className='info'>
-            <p className='main-times-text'>
-              {this.props.counters.length} items
-            </p>
-            <p className='main-items-text'>
-              {this.getTotalCounts()} times
-            </p>
+            {selectMode ? (
+              <p className='main-times-text' style={{ color: '#FF9500', marginRight: '6px' }}>
+                {selected.length} selected
+              </p>
+            ) : (
+              <Fragment>
+                <p className='main-times-text'>
+                {counters.length} items
+                </p>
+                <p className='main-items-text'>
+                  {this.getTotalCounts()} times
+                </p>
+              </Fragment>
+            )}
             {!refreshing ? <Refresh onClick={this.handleRefreshClick} /> : (
               <div className='container' style={{ alignItems: 'center' }}>
                 <RefreshColor style={{ marginRight: '6px' }} />
                 <p style={ {fontWeight: 500, color: '#FF9500' }}>Refreshing...</p>
               </div>
             )}
-            
           </div>
           <div className='column main-scroll'>
-            {counters.map(c => <CounterItem selected key={c.id} counter={c} />)}
+            {counters.map(c => <CounterItem
+              selected={selectMode && selected.includes(c.id)}
+              key={c.id}
+              counter={c}
+              onTouchStart={() => this.handleCounterPress(c)}
+              onMouseDown={() => this.handleCounterPress(c)}
+              onTouchEnd={() => this.handleCounterRelease(c)}
+              onMouseUp={() => this.handleCounterRelease(c)}
+              onMouseLeave={() => this.handleCounterRelease(c)}
+            />)}
           </div>
         </div>
       </div>
@@ -132,12 +165,15 @@ const mapStateToProps = state => ({
   initialFetch: state.main.initialFetch,
   counters: state.main.counters,
   update: state.main.update,
+  selected: state.main.selected,
+  selectMode: state.main.selectMode,
 });
 
 const mapDispatchToProps = dispatch => (bindActionCreators({
   fetchCounters,
   setSearchBar,
   setAddBar,
+  selectCounter,
 }, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
