@@ -1,0 +1,17 @@
+.counter-content {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: 24px 0px;
+}
+
+.counter-buttons {
+  display: flex;
+}
+
+.counter-count-text {
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0px 12px;
+  min-width: 23px;
+}

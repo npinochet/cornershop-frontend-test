@@ -1,12 +1,13 @@
 import {
   MAIN_FETCH_COUNTERS,
   MAIN_ADD_COUNTER,
+  MAIN_FETCH_PLUS,
+  MAIN_FETCH_MINUS,
 } from './actions';
 
 const initialState = {
   counters: [],
   initialFetch: false,
-  error: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -20,10 +21,18 @@ switch (type) {
       initialFetch: true,
     };
   }
-  case `${MAIN_FETCH_COUNTERS}_FAILURE`: {
+  case `${MAIN_FETCH_PLUS}_SUCCESS`: {
+    const counters = state.counters.map(c => c.id === payload.body.id ? {...c, count: c.count + 1} : c)
     return {
       ...state,
-      error: payload.error,
+      counters,
+    };
+  }
+  case `${MAIN_FETCH_MINUS}_SUCCESS`: {
+    const counters = state.counters.map(c => c.id === payload.body.id ? {...c, count: c.count - 1} : c)
+    return {
+      ...state,
+      counters,
     };
   }
   case MAIN_ADD_COUNTER: {

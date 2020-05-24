@@ -14,7 +14,7 @@ const fetchMiddleware = store => next => async action => {
   if (!action.fetch) return next(action)
 
   const { dispatch } = store
-  const { type, url, params } = action
+  const { type, url, params, debouncer } = action
 
   const headers = Object.assign(params.headers || {}, {
     'Content-Type': 'application/json',
@@ -27,8 +27,16 @@ const fetchMiddleware = store => next => async action => {
     body: JSON.stringify(params.body),
   })
 
-  dispatch({ type: `${type}_REQUEST`, url, params });
   let response
+
+  // Debouncer for isFetching
+  const request_action = { type: `${type}_REQUEST`, url, params };
+  if (!debouncer) dispatch(request_action); else {
+    setTimeout(() => {
+      if (!response) dispatch();
+    }, 500)
+  }
+ 
   try {
     response = await fetchWithTimeout(baseUrl + url, config, 7000)
   } catch (err) {
