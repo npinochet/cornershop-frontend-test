@@ -51,7 +51,8 @@ class AddModal extends Component {
     this.input.focus()
   }
 
-  handleSaveClick = async () => {
+  handleSaveClick = async e => {
+    e.preventDefault()
     if (!this.state.name) return
     const res = await this.props.fetchAddCounter(this.state.name)
     if (res.ok) {
@@ -89,10 +90,11 @@ class AddModal extends Component {
         </div>
         <hr className='dividor' />
         {isFetching ? <Loading /> : (
-          <div style={styles.content}>
+          <form onSubmit={this.handleSaveClick} style={styles.content}>
             <p className='name-text'>Name</p>
             <div className='input-content name-input' onClick={this.handleInputClick}>
               <input
+                autoFocus
                 ref={inp => this.input = inp}
                 placeholder='Cups of coffee'
                 onChange={this.handleInputOnChange}
@@ -101,7 +103,7 @@ class AddModal extends Component {
             <p className='small'>
               Give it a name. Creative block? See <Link to='/example'>examples</Link>.
             </p>
-          </div>
+          </form>
         )}
       </Modal>
     );

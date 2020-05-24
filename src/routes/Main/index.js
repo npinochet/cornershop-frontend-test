@@ -29,18 +29,31 @@ class MainScreen extends Component {
     }
   }
 
-  refreshCounters = async (debouncer) => {
+  refreshCounters = async debouncer => {
     const res = await this.props.fetchCounters(debouncer)
-    if (!res.ok) this.setState(state => ({
-      ...state,
-      title: 'Couldn’t load the counters',
-      message: 'The Internet connection appears to be offline.',
-    }))
+
+    if (!res.ok) {
+      this.setState(state => ({
+        ...state,
+        title: 'Couldn’t load the counters',
+        message: 'The Internet connection appears to be offline.',
+      }))
+      return res
+  }
     
-    if (this.props.counters.length <= 0) this.setState(state => ({
+    if (this.props.counters.length <= 0) {
+      this.setState(state => ({
+        ...state,
+        title: 'No counters yet',
+        message: '“When I started counting my blessings, my whole life turned around.”\n —Willie Nelson',
+      }))
+      return res
+    }
+
+    if (this.state.title) this.setState(state => ({
       ...state,
-      title: 'No counters yet',
-      message: '“When I started counting my blessings, my whole life turned around.”\n —Willie Nelson',
+      title: false,
+      message: false,
     }))
 
     return res
@@ -51,6 +64,10 @@ class MainScreen extends Component {
     this.props.setAddBar(true)
 
     if (!this.props.initialFetch) this.refreshCounters(false)
+  }
+
+  componentDidUpdate() {
+    if (this.props.update) this.refreshCounters(false)
   }
 
   handleRefreshClick = async () => {
@@ -114,6 +131,7 @@ const mapStateToProps = state => ({
   isFetching: state.app.isFetching,
   initialFetch: state.main.initialFetch,
   counters: state.main.counters,
+  update: state.main.update,
 });
 
 const mapDispatchToProps = dispatch => (bindActionCreators({

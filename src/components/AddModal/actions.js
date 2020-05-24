@@ -9,6 +9,7 @@ export const setAddModal = show => ({
 export const fetchAddCounter = title => ({
   type: ADDMODAL_FETCH_ADD,
   fetch: true,
+  debouncer: true,
   url: '/api/v1/counter',
   params: {
     method: 'POST',

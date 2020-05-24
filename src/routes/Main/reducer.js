@@ -8,6 +8,7 @@ import {
 const initialState = {
   counters: [],
   initialFetch: false,
+  update: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +18,7 @@ switch (type) {
   case `${MAIN_FETCH_COUNTERS}_SUCCESS`: {
     return {
       ...state,
+      update: false,
       counters: payload.body,
       initialFetch: true,
     };
@@ -38,6 +40,7 @@ switch (type) {
   case MAIN_ADD_COUNTER: {
     return {
       ...state,
+      update: true,
       counters: [
         ...state.counters,
         payload.counter,
