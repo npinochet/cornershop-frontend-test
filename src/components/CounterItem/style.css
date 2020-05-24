@@ -2,7 +2,13 @@
   display: flex;
   flex-grow: 0;
   flex-shrink: 0;
-  padding: 24px 0px;
+  padding: 14px 14px;
+  margin: 10px 10px;
+  border-radius: 6px;
+}
+
+.content-selected {
+  background-color: #FF950033;
 }
 
 .counter-buttons {
@@ -10,6 +16,7 @@
 }
 
 .counter-count-text {
+  opacity: 1;
   font-weight: 600;
   font-size: 20px;
   margin: 0px 12px;

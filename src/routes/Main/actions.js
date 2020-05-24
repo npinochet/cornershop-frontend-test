@@ -2,6 +2,7 @@ export const MAIN_FETCH_COUNTERS = 'MAIN_FETCH_COUNTERS';
 export const MAIN_ADD_COUNTER = 'MAIN_ADD_COUNTER';
 export const MAIN_FETCH_PLUS = 'MAIN_FETCH_PLUS';
 export const MAIN_FETCH_MINUS = 'MAIN_FETCH_MINUS';
+export const MAIN_SELECT_COUNTER = 'MAIN_SELECT_COUNTER';
 
 export const fetchCounters = debouncer => ({
   type: MAIN_FETCH_COUNTERS,
@@ -36,4 +37,9 @@ export const fetchCounterMinus = counter_id => ({
     method: 'POST',
     body: { id: counter_id },
   },
+});
+
+export const selectCounter = counter => ({
+  type: MAIN_SELECT_COUNTER,
+  payload: { counter },
 });

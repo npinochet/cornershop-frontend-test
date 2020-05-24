@@ -8,6 +8,7 @@ import { ReactComponent as Minus } from '../../assets/minus-color.svg';
 import { ReactComponent as MinusWhite } from '../../assets/minus.svg';
 
 import { fetchCounterPlus, fetchCounterMinus } from '../../routes/Main/actions';
+import { setAlertModal } from '../AlertModal/actions';
 
 import './style.css';
 
@@ -21,7 +22,20 @@ class CounterItem extends Component {
   handlePlusClick = async () => {
     const res = await this.props.fetchCounterPlus(this.props.counter.id)
     if (!res.ok) {
-      // show error modal
+      const title = `Couldn’t update “${this.props.counter.title}” to ${this.props.counter.count + 1}`
+      const message = 'The Internet connection appears to be offline.'
+      const content = [
+        {
+          text: 'Retry',
+          action: fetchCounterPlus(this.props.counter.id),
+        },
+        {
+          text: 'Dismiss',
+          props: { white: true },
+          action: setAlertModal(false),
+        }
+      ]
+      this.props.setAlertModal(true, title, message, content)
     }
   }
 
@@ -30,15 +44,30 @@ class CounterItem extends Component {
 
     const res = await this.props.fetchCounterMinus(this.props.counter.id)
     if (!res.ok) {
-      // show error modal
+      const title = `Couldn’t update “${this.props.counter.title}” to ${this.props.counter.count - 1}`
+      const message = 'The Internet connection appears to be offline.'
+      const content = [
+        {
+          text: 'Retry',
+          action: fetchCounterMinus(this.props.counter.id),
+        },
+        {
+          text: 'Dismiss',
+          props: { white: true },
+          action: setAlertModal(false),
+        }
+      ]
+      this.props.setAlertModal(true, title, message, content)
     }
   }
 
   render() {
-    const { counter } = this.props
+    const { counter, selected } = this.props
+
+    let contentClass = "counter-content" + (selected ? " content-selected" : "")
 
     return (
-      <div className='counter-content'>
+      <div className={contentClass}>
         <div>
           <p style={{ textAlign: 'start' }}>{counter.title}</p>
         </div>
@@ -65,9 +94,11 @@ class CounterItem extends Component {
 }
 
 CounterItem.propTypes = {
+  selected: PropTypes.bool,
   counter: PropTypes.object,
   fetchCounterPlus: PropTypes.func,
   fetchCounterMinus: PropTypes.func,
+  setAlertModal: PropTypes.func,
 }
 
 const mapStateToProps = state => ({
@@ -76,6 +107,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => (bindActionCreators({
   fetchCounterPlus,
   fetchCounterMinus,
+  setAlertModal,
 }, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(CounterItem);

@@ -3,10 +3,12 @@ import {
   MAIN_ADD_COUNTER,
   MAIN_FETCH_PLUS,
   MAIN_FETCH_MINUS,
+  MAIN_SELECT_COUNTER,
 } from './actions';
 
 const initialState = {
   counters: [],
+  selected: [],
   initialFetch: false,
   update: false,
 }
@@ -43,6 +45,16 @@ switch (type) {
       update: true,
       counters: [
         ...state.counters,
+        payload.counter,
+      ]
+    };
+  }
+  case MAIN_SELECT_COUNTER: {
+    return {
+      ...state,
+      update: true,
+      selected: [
+        ...state.selected,
         payload.counter,
       ]
     };

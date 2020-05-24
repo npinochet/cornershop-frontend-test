@@ -7,9 +7,10 @@ import Modal from 'react-modal';
 
 import { setAddModal, fetchAddCounter } from './actions';
 import { addCounter } from '../../routes/Main/actions';
+import { setAlertModal } from '../AlertModal/actions';
 
 import Button from '../Button';
-import Loading from '../../components/Loading';
+import Loading from '../Loading';
 import { ReactComponent as Plus } from '../../assets/plus.svg';
 
 import './style.css';
@@ -59,7 +60,15 @@ class AddModal extends Component {
       this.props.addCounter(res.body)
       this.handleClose()
     } else {
-      // show modal with error
+      const title = 'Couldn’t create counter'
+      const message = 'The Internet connection appears to be offline.'
+      const content = [
+        {
+          text: 'Dismiss',
+          action: setAlertModal(false),
+        }
+      ]
+      this.props.setAlertModal(true, title, message, content)
     }
   }
 
@@ -116,6 +125,7 @@ AddModal.propTypes = {
   setAddModal: PropTypes.func,
   fetchAddCounter: PropTypes.func,
   addCounter: PropTypes.func,
+  setAlertModal: PropTypes.func,
 }
 
 const mapStateToProps = state => ({
@@ -127,6 +137,7 @@ const mapDispatchToProps = dispatch => (bindActionCreators({
   setAddModal,
   fetchAddCounter,
   addCounter,
+  setAlertModal,
 }, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddModal);

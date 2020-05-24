@@ -4,6 +4,7 @@ import main from '../routes/Main/reducer';
 import searchBar from '../components/SearchBar/reducer';
 import addBar from '../components/AddBar/reducer';
 import addModal from '../components/AddModal/reducer';
+import alertModal from '../components/AlertModal/reducer';
 
 const initialState = {
   isFetching: false,
@@ -34,4 +35,5 @@ export default combineReducers({
   searchBar,
   addBar,
   addModal,
+  alertModal,
 });

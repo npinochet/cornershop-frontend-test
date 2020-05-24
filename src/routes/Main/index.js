@@ -119,7 +119,7 @@ class MainScreen extends Component {
             
           </div>
           <div className='column main-scroll'>
-            {counters.map(c => <CounterItem key={c.id} counter={c} />)}
+            {counters.map(c => <CounterItem selected key={c.id} counter={c} />)}
           </div>
         </div>
       </div>
