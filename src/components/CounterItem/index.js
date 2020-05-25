@@ -7,7 +7,7 @@ import { ReactComponent as Plus } from '../../assets/plus-color.svg';
 import { ReactComponent as Minus } from '../../assets/minus-color.svg';
 import { ReactComponent as MinusWhite } from '../../assets/minus.svg';
 
-import { fetchCounterPlus, fetchCounterMinus } from '../../routes/Main/actions';
+import { fetchCounterModify } from '../../routes/Main/actions';
 import { setAlertModal } from '../AlertModal/actions';
 
 import './style.css';
@@ -19,16 +19,20 @@ const styles = {
 }
 
 class CounterItem extends Component {
-  handlePlusClick = async () => {
-    const res = await this.props.fetchCounterPlus(this.props.counter.id)
+  handleChangeClick = async amount => {
+    const { counter } = this.props
+    if (amount < 0 && counter.count <= 0) return
+
+    const res = await this.props.fetchCounterModify(counter.id, amount)
+
     if (!res.ok) {
-      const title = `Couldn’t update “${this.props.counter.title}” to ${this.props.counter.count + 1}`
+      const title = `Couldn’t update “${counter.title}” to ${counter.count + amount}`
       const message = 'The Internet connection appears to be offline.'
       const content = [
         {
           text: 'Retry',
           fetch: true,
-          action: fetchCounterPlus(this.props.counter.id),
+          action: fetchCounterModify(counter.id, amount),
         },
         {
           text: 'Dismiss',
@@ -36,28 +40,7 @@ class CounterItem extends Component {
           action: setAlertModal(false),
         }
       ]
-      this.props.setAlertModal(true, title, message, content)
-    }
-  }
-
-  handleMinusClick = async () => {
-    if (this.props.counter.count <= 0) return
-
-    const res = await this.props.fetchCounterMinus(this.props.counter.id)
-    if (!res.ok) {
-      const title = `Couldn’t update “${this.props.counter.title}” to ${this.props.counter.count - 1}`
-      const message = 'The Internet connection appears to be offline.'
-      const content = [
-        {
-          text: 'Retry',
-          action: fetchCounterMinus(this.props.counter.id),
-        },
-        {
-          text: 'Dismiss',
-          props: { white: true },
-          action: setAlertModal(false),
-        }
-      ]
+      content[0].backup = setAlertModal(true, title, message, content)
       this.props.setAlertModal(true, title, message, content)
     }
   }
@@ -90,7 +73,7 @@ class CounterItem extends Component {
         <div className='container' />
         <div>
           <div className='counter-buttons'>
-            <div onClick={this.handleMinusClick} className='container center'>
+            <div onClick={() => this.handleChangeClick(-1)} className='container center'>
               {counter.count <= 0 ? <MinusWhite /> : <Minus />}
             </div>
             <p
@@ -99,7 +82,7 @@ class CounterItem extends Component {
             >
               {counter.count}
             </p>
-            <div onClick={this.handlePlusClick} className='container center'>
+            <div onClick={() => this.handleChangeClick(1)} className='container center'>
               <Plus />
             </div>
           </div>
@@ -112,17 +95,20 @@ class CounterItem extends Component {
 CounterItem.propTypes = {
   selected: PropTypes.bool,
   counter: PropTypes.object,
-  fetchCounterPlus: PropTypes.func,
-  fetchCounterMinus: PropTypes.func,
+  fetchCounterModify: PropTypes.func,
   setAlertModal: PropTypes.func,
+  onTouchStart: PropTypes.func,
+  onMouseDown: PropTypes.func,
+  onTouchEnd: PropTypes.func,
+  onMouseUp: PropTypes.func,
+  onMouseLeave: PropTypes.func,
 }
 
 const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => (bindActionCreators({
-  fetchCounterPlus,
-  fetchCounterMinus,
+  fetchCounterModify,
   setAlertModal,
 }, dispatch));
 

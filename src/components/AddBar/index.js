@@ -42,6 +42,7 @@ class AddBar extends Component {
         }
       ]
     )
+    backup.payload.content[0].backup = backup
 
     const title = `Delete the ${counterName} counter` + (selected.length === 1 ? '?' : 's?')
     const message = 'This cannot be undone.'

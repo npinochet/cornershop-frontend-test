@@ -87,19 +87,20 @@ class MainScreen extends Component {
     this.props.counters.map(i => i.count).reduce((a, b) => a + b, 0)
   )
 
-  handleCounterPress = async c => {
+  handleCounterPress = c => {
     if (this.props.selectMode) {
-      await this.props.selectCounter(c.id, this.props.selected.includes(c.id))
+      this.props.selectCounter(c.id, this.props.selected.includes(c.id))
       return
     }
 
-    this.pressTimer = setTimeout(() => {
-      this.props.selectCounter(c.id)
-    }, 500);
+    this.pressTimer = setTimeout(() => this.props.selectCounter(c.id), 500);
   }
 
-  handleCounterRelease = c => {
-    if (this.props.selectMode) return
+  handleCounterRelease = e => {
+    if (this.props.selectMode) {
+      if (e) e.preventDefault()
+      return
+    }
     clearTimeout(this.pressTimer)
   }
 
@@ -149,9 +150,9 @@ class MainScreen extends Component {
               counter={c}
               onTouchStart={() => this.handleCounterPress(c)}
               onMouseDown={() => this.handleCounterPress(c)}
-              onTouchEnd={() => this.handleCounterRelease(c)}
-              onMouseUp={() => this.handleCounterRelease(c)}
-              onMouseLeave={() => this.handleCounterRelease(c)}
+              onTouchEnd={this.handleCounterRelease}
+              onMouseUp={this.handleCounterRelease}
+              onMouseLeave={this.handleCounterRelease}
             />)}
           </div>
         </div>

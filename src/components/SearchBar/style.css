@@ -2,8 +2,7 @@
   display: flex;
   justify-content: center;
   margin: 20px 16px;
-}
-
-.search-input {
-  max-width: 340px;
+  max-width: calc(340px + 20px*2);
+  width: calc(100% - 20px*2);
+  align-self: center;
 }

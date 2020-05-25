@@ -1,5 +1,5 @@
 const isProduction = process.env.NODE_ENV === 'production'
-const baseUrl = isProduction ? process.env.REACT_APP_API_URL : 'http://localhost:3001'
+const baseUrl = isProduction ? process.env.REACT_APP_API_URL : 'http://192.168.1.106:3001'
 
 const fetchWithTimeout = (url, options, timeout = 7000) => (
   Promise.race([
@@ -11,7 +11,7 @@ const fetchWithTimeout = (url, options, timeout = 7000) => (
 )
 
 const fetchMiddleware = store => next => async action => {
-  if (!action.fetch) return next(action)
+  if (!action || !action.fetch) return next(action)
 
   const { dispatch } = store
   const { type, url, params, debouncer } = action
@@ -27,24 +27,27 @@ const fetchMiddleware = store => next => async action => {
     body: JSON.stringify(params.body),
   })
 
-  let response
+  const initial_action = { type: `${type}_INITIAL`, payload: { url, params } };
+  dispatch(initial_action)
 
   // Debouncer for isFetching
-  const request_action = { type: `${type}_REQUEST`, url, params };
+  const request_action = { type: `${type}_REQUEST`, payload: { url, params } };
+  let debounceTimer = false
   if (!debouncer) dispatch(request_action); else {
-    setTimeout(() => {
-      if (!response) dispatch();
-    }, 500)
+    debounceTimer = setTimeout(() => dispatch(request_action), 300)
   }
- 
+
+  let response
   try {
     response = await fetchWithTimeout(baseUrl + url, config, 7000)
+    clearTimeout(debounceTimer)
   } catch (err) {
-    const payload = { ok: false, error: err }
+    clearTimeout(debounceTimer)
+    const payload = { ok: false, error: err, params }
     dispatch({ type: `${type}_FAILURE`, payload })
     return payload
   }
-
+  
   try {
     const payload = {
       ok: response.ok,
@@ -60,6 +63,7 @@ const fetchMiddleware = store => next => async action => {
       ok: response.ok,
       status: response.status,
       body: null,
+      params,
       error: err,
     };
     dispatch({ type: `${type}_FAILURE`, payload })

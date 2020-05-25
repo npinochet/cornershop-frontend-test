@@ -1,8 +1,7 @@
 import {
   MAIN_FETCH_COUNTERS,
   MAIN_ADD_COUNTER,
-  MAIN_FETCH_PLUS,
-  MAIN_FETCH_MINUS,
+  MAIN_FETCH_MODIFY,
   MAIN_SELECT_COUNTER,
   MAIN_FETCH_REMOVE,
   MAIN_CLEAR_SELECT_COUNTER,
@@ -28,15 +27,19 @@ switch (type) {
       initialFetch: true,
     };
   }
-  case `${MAIN_FETCH_PLUS}_SUCCESS`: {
-    const counters = state.counters.map(c => c.id === payload.body.id ? {...c, count: c.count + 1} : c)
+  case `${MAIN_FETCH_MODIFY}_INITIAL`: {
+    const { id } = payload.params.body
+    const amount = payload.params.amount
+    const counters = state.counters.map(c => c.id === id ? {...c, count: c.count + amount} : c)
     return {
       ...state,
       counters,
     };
   }
-  case `${MAIN_FETCH_MINUS}_SUCCESS`: {
-    const counters = state.counters.map(c => c.id === payload.body.id ? {...c, count: c.count - 1} : c)
+  case `${MAIN_FETCH_MODIFY}_FAILURE` : {
+    const { id } = payload.params.body
+    const amount = payload.params.amount
+    const counters = state.counters.map(c => c.id === id ? {...c, count: c.count - amount} : c)
     return {
       ...state,
       counters,

@@ -53,10 +53,6 @@ div.name-input {
   box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.05);
 }
 
-div.name-input:active, div.name-input:focus-within {
-  border: 1px solid #FF9500;
-}
-
 div.name-input:hover {
   box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
 }
