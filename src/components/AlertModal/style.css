@@ -23,3 +23,7 @@
   opacity: 0;
   transition: opacity 500ms ease-in-out;
 }
+
+.alertmodal-container {
+  padding: 20px 28px;
+}

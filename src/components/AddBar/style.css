@@ -1,5 +1,7 @@
-.bar-container {
-  display: flex;
+.addbar-container {
   margin: 16px;
-  flex-direction: row-reverse;
+}
+
+.addbar-separator {
+  margin-right: 18px;
 }

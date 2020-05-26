@@ -13,9 +13,6 @@ import './style.css';
 Modal.setAppElement('#root');
 
 const styles = {
-  container: {
-    padding: '20px 28px',
-  },
   title: {
     margin: '0px',
   },
@@ -50,7 +47,7 @@ class AlertModal extends Component {
         isOpen={show}
       >
         <div>
-          <div style={styles.container} className='container column'>
+          <div className='container column addmodal-container'>
             <p className='title' style={styles.title}>{title}</p>
             <p className='small' style={styles.message}>{message}</p>
             <div className='container' />

@@ -3,54 +3,47 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import { setSearch, setFocus } from './actions';
+
 import Button from '../Button';
 import { ReactComponent as Glass } from '../../assets/glass.svg';
 
 import './style.css';
 
-const styles = {
-  icon: {
-    marginRight: '16px',
-  }
-}
-
 class SearchBar extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      focused: false,
-    }
-  }
-
   handleClick = () => {
     this.input.focus()
   }
 
   handleOnFocus = () => {
-    this.setState(state => ({
-      ...state,
-      focused: true,
-    }))
+    this.props.setFocus(true)
   }
 
   handleOnBlur = () => {
-    this.setState(state => ({
-      ...state,
-      focused: false,
-    }))
+    if (!this.props.search) this.props.setFocus(false)
+  }
+
+  handleOnChange = e => {
+    this.props.setSearch(e.target.value)
+  }
+
+  handleCancelClick = () => {
+    this.props.setFocus(false)
+    this.props.setSearch(false)
   }
 
   render() {
-    const { show } = this.props
-    const { focused } = this.state
+    const { show, search, focused } = this.props
     if (!show) return <Fragment />
 
     return (
-      <div className='input-container'>
+      <div className='search-container'>
         <div className='input-content' onClick={this.handleClick}>
-          <Glass style={styles.icon} />
+          <Glass className='search-glass-icon' />
           <input
             ref={inp => this.input = inp}
+            value={search}
+            onChange={this.handleOnChange}
             onFocus={this.handleOnFocus}
             onBlur={this.handleOnBlur}
             type='search'
@@ -60,8 +53,9 @@ class SearchBar extends Component {
         {focused && (
           <Button
             white
-            style={{marginLeft: '12px'}}
-            textProps={{style: {color: '#4A4A4A'}}}
+            className='search-button'
+            textProps={{ style: { color: '#4A4A4A' } }}
+            onClick={this.handleCancelClick}
           >
             Cancel
           </Button>
@@ -73,13 +67,20 @@ class SearchBar extends Component {
 
 SearchBar.propTypes = {
   show: PropTypes.bool,
+  search: PropTypes.string,
+  setSearch: PropTypes.func,
+  setFocus: PropTypes.func,
 }
 
 const mapStateToProps = state => ({
   show: state.searchBar.show,
+  search: state.searchBar.search,
+  focused: state.searchBar.focused,
 });
 
 const mapDispatchToProps = dispatch => (bindActionCreators({
+  setSearch,
+  setFocus,
 }, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

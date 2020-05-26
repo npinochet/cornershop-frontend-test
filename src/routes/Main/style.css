@@ -4,6 +4,10 @@
   padding: 0px 24px;
 }
 
+.main-container {
+  justify-content: center;
+}
+
 .main-content {
   max-width: 570px;
 }
@@ -19,6 +23,17 @@
   font-weight: 600;
   letter-spacing: 0.02em;
   color: #4A4A4A;
+}
+
+.main-timer-text-select {
+  color: #FF9500;
+  margin-right: 6px;
+}
+
+.main-refresh-text {
+  margin-left: 6px;
+  font-weight: 500;
+  color: #FF9500;
 }
 
 .main-scroll {

@@ -11,8 +11,9 @@
   background-color: #FF950033;
 }
 
-.counter-buttons {
+.counter-title {
   display: flex;
+  align-items: center;
 }
 
 .counter-count-text {
@@ -20,4 +21,8 @@
   font-size: 20px;
   margin: 0px 12px;
   min-width: 23px;
+}
+
+.counter-disabled {
+  color: #888B90;
 }

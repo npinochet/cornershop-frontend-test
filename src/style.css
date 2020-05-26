@@ -1,7 +1,15 @@
-/* Global Style */
+/** Global Style **/
+
+/* General Rules */
 
 html, body {
   margin: 0px;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: var(--mobile-height) !important;
 }
 
 a {
@@ -16,10 +24,11 @@ a.no-link {
   text-decoration: none;
 }
 
-#root {
-  display: flex;
-  flex-direction: column;
-  min-height: var(--mobile-height) !important;
+hr {
+  margin: 0px 16px;
+  color: rgba(0, 0, 0, 0.1);
+  border-style: solid;
+  border-width: 1px;
 }
 
 p, span, input {
@@ -29,6 +38,22 @@ p, span, input {
   margin: 0px;
   white-space: pre-line;
   -webkit-appearance: none;
+}
+
+input {
+  flex: 1;
+  width: 100%;
+  min-width: 10px;
+  border: none;
+  font-size: 16px;
+  text-align: start;
+  line-height: 32px;
+  color: #888B90;
+  outline: none;
+}
+
+input:focus {
+  outline-width: 0;
 }
 
 p.title {
@@ -46,12 +71,7 @@ p.small {
   margin: 9px 0px;
 }
 
-hr {
-  margin: 0px 16px;
-  color: rgba(0, 0, 0, 0.1);
-  border-style: solid;
-  border-width: 1px;
-}
+/* Utilities */
 
 .container {
   display: flex;
@@ -78,6 +98,8 @@ hr {
   justify-content: space-evenly;
 }
 
+/* Global Classes */
+
 .input-content {
   display: flex;
   flex: 1;
@@ -100,21 +122,7 @@ hr {
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-input {
-  flex: 1;
-  border: none;
-  font-size: 16px;
-  text-align: start;
-  line-height: 32px;
-  color: #888B90;
-  outline: none;
-}
-
-input:focus {
-  outline-width: 0;
-}
-
-/* React Modal Transition */
+/* Global React Modal Transition */
 
 .ReactModal__Overlay--after-open {
   opacity: 1;

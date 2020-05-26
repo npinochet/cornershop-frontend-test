@@ -1,8 +1,16 @@
-.input-container {
+.search-container {
   display: flex;
   justify-content: center;
   margin: 20px 16px;
   max-width: calc(340px + 20px*2);
   width: calc(100% - 20px*2);
   align-self: center;
+}
+
+.search-glass-icon {
+  margin-right: 16px;
+}
+
+.search-button {
+  margin-left: 12px;
 }

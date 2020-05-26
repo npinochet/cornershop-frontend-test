@@ -12,12 +12,6 @@ import { setAlertModal } from '../AlertModal/actions';
 
 import './style.css';
 
-const styles = {
-  disabledText: {
-    color: '#888B90',
-  }
-}
-
 class CounterItem extends Component {
   handleChangeClick = async amount => {
     const { counter } = this.props
@@ -67,18 +61,17 @@ class CounterItem extends Component {
         onMouseUp={onMouseUp}
         onMouseLeave={onMouseLeave}
       >
-        <div>
-          <p style={{ textAlign: 'start' }}>{counter.title}</p>
+        <div className='counter-title'>
+          <p>{counter.title}</p>
         </div>
         <div className='container' />
         <div>
-          <div className='counter-buttons'>
+          <div className='container'>
             <div onClick={() => this.handleChangeClick(-1)} className='container center'>
               {counter.count <= 0 ? <MinusWhite /> : <Minus />}
             </div>
             <p
-              className='counter-count-text'
-              style={counter.count <= 0 ? styles.disabledText : {}}
+              className={'counter-count-text' + (counter.count <= 0 ? ' counter-disabled' : '')}
             >
               {counter.count}
             </p>

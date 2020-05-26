@@ -69,29 +69,27 @@ class AddBar extends Component {
     return (
       <div>
         <hr />
-        <div className='bar-container'>
-          <div className='container'>
-            {selectMode && (
-              <Fragment>
-                <Button
-                  white
-                  onClick={this.handleRemoveClick}
-                  disabled={isFetching}
-                >
-                  <Remove />
-                </Button>
-                <div style={{ marginRight: '18px' }} />
-                <Button white><Share /></Button>
-              </Fragment>
-            )}
-            <div className='container' />
-            <Button
-              disabled={isFetching}
-              onClick={this.handleAddClick}
-            >
-              <Plus />
-            </Button>
-          </div>
+        <div className='container addbar-container'>
+          {selectMode && (
+            <Fragment>
+              <Button
+                white
+                onClick={this.handleRemoveClick}
+                disabled={isFetching}
+              >
+                <Remove />
+              </Button>
+              <div className="addbar-separator" />
+              <Button white><Share /></Button>
+            </Fragment>
+          )}
+          <div className='container' />
+          <Button
+            disabled={isFetching}
+            onClick={this.handleAddClick}
+          >
+            <Plus />
+          </Button>
         </div>
       </div>
     );

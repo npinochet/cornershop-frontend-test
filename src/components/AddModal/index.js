@@ -18,15 +18,8 @@ import './style.css';
 Modal.setAppElement('#root');
 
 const styles = {
-  container: {
-    padding: '16px',
-    alignItems: 'center',
-  },
   text: {
     margin: '0px 16px',
-  },
-  content: {
-    padding: '0px 18px',
   },
 }
 
@@ -84,36 +77,38 @@ class AddModal extends Component {
         closeTimeoutMS={500}
         isOpen={show}
       >
-        <div>
-          <div style={styles.container} className='container between'>
-            <div onClick={this.handleClose} className='icon center'><Plus /></div>
-            <p className='title' style={styles.text}>Create Counter</p>
-            <div className='container' />
-            <Button
-              disabled={isFetching || !this.state.name}
-              onClick={this.handleSaveClick}
-            >
-              Save
-            </Button>
-          </div>
-        </div>
-        <hr className='dividor' />
-        {isFetching ? <Loading /> : (
-          <form onSubmit={this.handleSaveClick} style={styles.content}>
-            <p className='name-text'>Name</p>
-            <div className='input-content name-input' onClick={this.handleInputClick}>
-              <input
-                autoFocus
-                ref={inp => this.input = inp}
-                placeholder='Cups of coffee'
-                onChange={this.handleInputOnChange}
-              />
+        <div className='addmodal-container'>
+          <div>
+            <div className='container center'>
+              <div onClick={this.handleClose} className='addmodal-icon center'><Plus /></div>
+              <p className='title' style={styles.text}>Create Counter</p>
+              <div className='container' />
+              <Button
+                disabled={isFetching || !this.state.name}
+                onClick={this.handleSaveClick}
+              >
+                Save
+              </Button>
             </div>
-            <p className='small'>
-              Give it a name. Creative block? See <Link to='/example'>examples</Link>.
-            </p>
-          </form>
-        )}
+          </div>
+          <hr className='addmodal-dividor' />
+          {isFetching ? <Loading /> : (
+            <form onSubmit={this.handleSaveClick}>
+              <p className='name-label'>Name</p>
+              <div className='input-content name-input' onClick={this.handleInputClick}>
+                <input
+                  autoFocus
+                  ref={inp => this.input = inp}
+                  placeholder='Cups of coffee'
+                  onChange={this.handleInputOnChange}
+                />
+              </div>
+              <p className='small'>
+                Give it a name. Creative block? See <Link to='/example'>examples</Link>.
+              </p>
+            </form>
+          )}
+        </div>
       </Modal>
     );
   }

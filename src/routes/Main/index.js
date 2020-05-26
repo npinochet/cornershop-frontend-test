@@ -17,6 +17,10 @@ const styles = {
   text: {
     margin: '0px 50px',
   },
+  results: {
+    fontWeight: 500,
+    color: '#888B90',
+  }
 }
 
 class MainScreen extends Component {
@@ -83,10 +87,6 @@ class MainScreen extends Component {
     }))
   }
 
-  getTotalCounts = () => (
-    this.props.counters.map(i => i.count).reduce((a, b) => a + b, 0)
-  )
-
   handleCounterPress = c => {
     if (this.props.selectMode) {
       this.props.selectCounter(c.id, this.props.selected.includes(c.id))
@@ -105,7 +105,7 @@ class MainScreen extends Component {
   }
 
   render() {
-    const { isFetching, counters, selected, selectMode } = this.props
+    const { isFetching, selected, selectMode, search } = this.props
     let { title, message, refreshing } = this.state
     if (isFetching) return <Loading />
 
@@ -118,29 +118,36 @@ class MainScreen extends Component {
       )
     }
 
+    let counters = this.props.counters
+    if (search) counters = counters.filter(c => c.title.toLowerCase().includes(search.toLowerCase()))
+
+    if (search && counters.length <= 0) {
+      return (
+        <div className='container center'>
+          <p className='title' style={styles.results}>No results</p>
+        </div>
+      )
+    }
+
     return (
-      <div className='container' style={{ justifyContent: 'center' }}>
+      <div className='container main-container'>
         <div className='container column main-content'>
           <div className='info'>
-            {selectMode ? (
-              <p className='main-times-text' style={{ color: '#FF9500', marginRight: '6px' }}>
-                {selected.length} selected
-              </p>
-            ) : (
+            <p className={'main-times-text' + (selectMode ? ' main-timer-text-select' : '')}>
+              {selectMode ? selected.length : counters.length} {selectMode ? 'selected' : 'items'}
+            </p>
+            {!selectMode && (
               <Fragment>
-                <p className='main-times-text'>
-                {counters.length} items
-                </p>
                 <p className='main-items-text'>
-                  {this.getTotalCounts()} times
+                  {counters.map(i => i.count).reduce((a, b) => a + b, 0)} times
                 </p>
               </Fragment>
             )}
             {!refreshing ? <Refresh onClick={this.handleRefreshClick} /> : (
-              <div className='container' style={{ alignItems: 'center' }}>
-                <RefreshColor style={{ marginRight: '6px' }} />
-                <p style={ {fontWeight: 500, color: '#FF9500' }}>Refreshing...</p>
-              </div>
+              <Fragment>
+                <RefreshColor />
+                <p className='main-refresh-text'>Refreshing...</p>
+              </Fragment>
             )}
           </div>
           <div className='column main-scroll'>
@@ -168,6 +175,7 @@ const mapStateToProps = state => ({
   update: state.main.update,
   selected: state.main.selected,
   selectMode: state.main.selectMode,
+  search: state.searchBar.search,
 });
 
 const mapDispatchToProps = dispatch => (bindActionCreators({
