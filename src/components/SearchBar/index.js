@@ -46,7 +46,6 @@ class SearchBar extends Component {
             onChange={this.handleOnChange}
             onFocus={this.handleOnFocus}
             onBlur={this.handleOnBlur}
-            type='search'
             placeholder='Search Counters'
           />
         </div>

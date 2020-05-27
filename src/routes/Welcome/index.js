@@ -24,7 +24,7 @@ class Welcome extends Component {
           <p className='title'>Welcome to Counters</p>
           <p>Capture cups of lattes, frapuccinos, or anything else that can be counted.</p>
         </div>    
-        <Link to='/main' className='no-link'>
+        <Link to='/main'>
           <Button>Get Started</Button>
         </Link>
       </div>

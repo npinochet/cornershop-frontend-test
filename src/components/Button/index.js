@@ -10,10 +10,19 @@ class Button extends Component {
   }
 
   render() {
-    const { disabled, children, white, loading, type, textProps,  ...rest } = this.props
+    const {
+      disabled,
+      children,
+      white,
+      loading,
+      type,
+      textProps,
+      className,
+      ...rest
+    } = this.props
 
-    let buttonClass = "button" + (white ? " button-white" : "")
-    let spanClass = "button-span" + (white ? " button-span-white" : "")
+    let buttonClass = 'button ' + (white ? 'button-white ' : '') + (className || '')
+    let spanClass = 'button-span ' + (white ? 'button-span-white' : '')
 
     return (
       <button

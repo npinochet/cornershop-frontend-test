@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { fetchCounters, selectCounter } from './actions';
 import { setSearchBar } from '../../components/SearchBar/actions';
-import { setAddBar } from '../../components/AddBar/actions';
+import { setOptionBar } from '../../components/OptionBar/actions';
 
 import Loading from '../../components/Loading';
 import CounterItem from '../../components/CounterItem';
@@ -44,7 +44,7 @@ class MainScreen extends Component {
         message: 'The Internet connection appears to be offline.',
       }))
       return res
-  }
+    }
     
     if (this.props.counters.length <= 0) {
       this.setState(state => ({
@@ -66,7 +66,7 @@ class MainScreen extends Component {
 
   componentDidMount() {
     this.props.setSearchBar(true)
-    this.props.setAddBar(true)
+    this.props.setOptionBar(true)
 
     if (!this.props.initialFetch) this.refreshCounters(false)
   }
@@ -80,7 +80,7 @@ class MainScreen extends Component {
       ...state,
       refreshing: true,
     }))
-    await this.props.fetchCounters(true)
+    await this.refreshCounters()
     this.setState(state => ({
       ...state,
       refreshing: false,
@@ -93,7 +93,7 @@ class MainScreen extends Component {
       return
     }
 
-    this.pressTimer = setTimeout(() => this.props.selectCounter(c.id), 500);
+    this.pressTimer = setTimeout(() => this.props.selectCounter(c.id), 300);
   }
 
   handleCounterRelease = e => {
@@ -133,24 +133,24 @@ class MainScreen extends Component {
       <div className='container main-container'>
         <div className='container column main-content'>
           <div className='info'>
-            <p className={'main-times-text' + (selectMode ? ' main-timer-text-select' : '')}>
+            <p className={'main-times-text' + (selectMode ? ' main-text-color' : '')}>
               {selectMode ? selected.length : counters.length} {selectMode ? 'selected' : 'items'}
             </p>
             {!selectMode && (
               <Fragment>
-                <p className='main-items-text'>
+                <p className='bold main-items-text'>
                   {counters.map(i => i.count).reduce((a, b) => a + b, 0)} times
                 </p>
               </Fragment>
             )}
-            {!refreshing ? <Refresh onClick={this.handleRefreshClick} /> : (
+            {!refreshing ? <Refresh className='main-icon' onClick={this.handleRefreshClick} /> : (
               <Fragment>
-                <RefreshColor />
-                <p className='main-refresh-text'>Refreshing...</p>
+                <RefreshColor className='main-icon' />
+                <p className='main-text-color bold'>Refreshing...</p>
               </Fragment>
             )}
           </div>
-          <div className='column main-scroll'>
+          <div className='column hide-scroll main-scroll'>
             {counters.map(c => <CounterItem
               selected={selectMode && selected.includes(c.id)}
               key={c.id}
@@ -181,7 +181,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => (bindActionCreators({
   fetchCounters,
   setSearchBar,
-  setAddBar,
+  setOptionBar,
   selectCounter,
 }, dispatch));
 

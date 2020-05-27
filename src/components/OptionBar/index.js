@@ -14,7 +14,7 @@ import Button from '../Button';
 
 import './style.css';
 
-class AddBar extends Component {
+class OptionBar extends Component {
   handleAddClick = () => {
     this.props.setAddModal(true)
   }
@@ -25,7 +25,7 @@ class AddBar extends Component {
     const firstName = counters.filter(c => c.id === selected[0])[0].title
     const counterName = selected.length === 1 ? `"${firstName}"` : 'selected'
 
-    const backup = setAlertModal(
+    const onFail = setAlertModal(
       true,
       `Couldn’t delete ${counterName} counter` + (selected.length === 1 ? '' : 's'),
       'The Internet connection appears to be offline.',
@@ -42,7 +42,7 @@ class AddBar extends Component {
         }
       ]
     )
-    backup.payload.content[0].backup = backup
+    onFail.payload.content[0].onFail = onFail
 
     const title = `Delete the ${counterName} counter` + (selected.length === 1 ? '?' : 's?')
     const message = 'This cannot be undone.'
@@ -56,7 +56,7 @@ class AddBar extends Component {
         props: { white: true, textProps: { style: { color: '#FF3B30' } } },
         fetch: true,
         action: fetchCounterRemoveSelected(),
-        backup,
+        onFail,
       }
     ]
     this.props.setAlertModal(true, title, message, content)
@@ -69,7 +69,7 @@ class AddBar extends Component {
     return (
       <div>
         <hr />
-        <div className='container addbar-container'>
+        <div className='container optionbar-container'>
           {selectMode && (
             <Fragment>
               <Button
@@ -79,7 +79,7 @@ class AddBar extends Component {
               >
                 <Remove />
               </Button>
-              <div className="addbar-separator" />
+              <div className="optionbar-separator" />
               <Button white><Share /></Button>
             </Fragment>
           )}
@@ -96,7 +96,7 @@ class AddBar extends Component {
   }
 }
 
-AddBar.propTypes = {
+OptionBar.propTypes = {
   isFetching: PropTypes.bool,
   show: PropTypes.bool,
   setAddModal: PropTypes.func,
@@ -109,7 +109,7 @@ AddBar.propTypes = {
 
 const mapStateToProps = state => ({
   isFetching: state.app.isFetching,
-  show: state.addBar.show,
+  show: state.optionBar.show,
   selected: state.main.selected,
   selectMode: state.main.selectMode,
   counters: state.main.counters,
@@ -121,4 +121,4 @@ const mapDispatchToProps = dispatch => (bindActionCreators({
   clearSelectCounter,
 }, dispatch));
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddBar);
+export default connect(mapStateToProps, mapDispatchToProps)(OptionBar);

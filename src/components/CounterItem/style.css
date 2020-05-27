@@ -1,7 +1,5 @@
 .counter-content {
   display: flex;
-  flex-grow: 0;
-  flex-shrink: 0;
   padding: 14px 14px;
   margin: 10px 10px;
   border-radius: 6px;

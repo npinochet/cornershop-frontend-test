@@ -1,6 +1,6 @@
 export const ADDBAR_SET = 'ADDBAR_SET';
 
-export const setAddBar = show => ({
+export const setOptionBar = show => ({
   type: ADDBAR_SET,
   payload: { show },
 });

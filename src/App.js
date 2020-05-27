@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import Content from './routes';
 
 import SearchBar from './components/SearchBar';
-import AddBar from './components/AddBar';
+import OptionBar from './components/OptionBar';
 import AddModal from './components/AddModal';
 import AlertModal from './components/AlertModal';
 
@@ -12,7 +12,7 @@ const App = () => (
     <AlertModal />
     <SearchBar />
     <Content />
-    <AddBar />
+    <OptionBar />
   </Fragment>
 );
 

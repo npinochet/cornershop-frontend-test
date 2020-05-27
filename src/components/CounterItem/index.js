@@ -34,7 +34,7 @@ class CounterItem extends Component {
           action: setAlertModal(false),
         }
       ]
-      content[0].backup = setAlertModal(true, title, message, content)
+      content[0].onFail = setAlertModal(true, title, message, content)
       this.props.setAlertModal(true, title, message, content)
     }
   }
@@ -53,30 +53,32 @@ class CounterItem extends Component {
     let contentClass = "counter-content" + (selected ? " content-selected" : "")
 
     return (
-      <div 
-        className={contentClass}
-        onTouchStart={onTouchStart}
-        onMouseDown={onMouseDown}
-        onTouchEnd={onTouchEnd}
-        onMouseUp={onMouseUp}
-        onMouseLeave={onMouseLeave}
-      >
-        <div className='counter-title'>
-          <p>{counter.title}</p>
-        </div>
-        <div className='container' />
-        <div>
-          <div className='container'>
-            <div onClick={() => this.handleChangeClick(-1)} className='container center'>
-              {counter.count <= 0 ? <MinusWhite /> : <Minus />}
-            </div>
-            <p
-              className={'counter-count-text' + (counter.count <= 0 ? ' counter-disabled' : '')}
-            >
-              {counter.count}
-            </p>
-            <div onClick={() => this.handleChangeClick(1)} className='container center'>
-              <Plus />
+      <div>
+        <div 
+          className={contentClass}
+          onTouchStart={onTouchStart}
+          onMouseDown={onMouseDown}
+          onTouchEnd={onTouchEnd}
+          onMouseUp={onMouseUp}
+          onMouseLeave={onMouseLeave}
+        >
+          <div className='counter-title'>
+            <p>{counter.title}</p>
+          </div>
+          <div className='container' />
+          <div>
+            <div className='container'>
+              <div onClick={() => this.handleChangeClick(-1)} className='container center'>
+                {counter.count <= 0 ? <MinusWhite /> : <Minus />}
+              </div>
+              <p
+                className={'counter-count-text' + (counter.count <= 0 ? ' counter-disabled' : '')}
+              >
+                {counter.count}
+              </p>
+              <div onClick={() => this.handleChangeClick(1)} className='container center'>
+                <Plus />
+              </div>
             </div>
           </div>
         </div>

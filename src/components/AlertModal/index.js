@@ -29,9 +29,9 @@ class AlertModal extends Component {
 
   handleDispatchAction = async content => {
     this.handleClose()
-    const { action, fetch, backup } = content
+    const { action, fetch, onFail } = content
     const res = await this.props.dispatch(action)
-    if (fetch && backup && !res.ok) this.props.dispatch(content.backup)
+    if (fetch && onFail && !res.ok) this.props.dispatch(content.onFail)
   }
 
   render() {

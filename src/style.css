@@ -13,15 +13,17 @@ html, body {
 }
 
 a {
-  color: #4a4a4a;
-}
-
-a:hover {
-  color: #2a2a2a;
-}
-
-a.no-link {
   text-decoration: none;
+}
+
+.link {
+  color: #4a4a4a;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: #2a2a2a;
 }
 
 hr {
@@ -69,6 +71,11 @@ p.small {
   line-height: 20px;
   text-align: start;
   margin: 9px 0px;
+}
+
+p.bold {
+  text-align: start;
+  font-weight: 500;
 }
 
 /* Utilities */
@@ -120,6 +127,15 @@ p.small {
   background-color: #cccccc;
   color: #666666;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.hide-scroll {
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 /* Global React Modal Transition */

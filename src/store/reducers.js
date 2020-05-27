@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import main from '../routes/Main/reducer';
 import searchBar from '../components/SearchBar/reducer';
-import addBar from '../components/AddBar/reducer';
+import optionBar from '../components/OptionBar/reducer';
 import addModal from '../components/AddModal/reducer';
 import alertModal from '../components/AlertModal/reducer';
 
@@ -33,7 +33,7 @@ export default combineReducers({
   app,
   main,
   searchBar,
-  addBar,
+  optionBar,
   addModal,
   alertModal,
 });

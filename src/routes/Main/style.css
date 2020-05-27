@@ -14,8 +14,11 @@
 
 .main-items-text {
   color: #888B90;
-  font-weight: 500;
   letter-spacing: 0.02em;
+  margin-left: 8px;
+}
+
+.main-icon {
   margin: 0px 8px;
 }
 
@@ -25,24 +28,16 @@
   color: #4A4A4A;
 }
 
-.main-timer-text-select {
+.main-text-color {
   color: #FF9500;
-  margin-right: 6px;
 }
 
 .main-refresh-text {
   margin-left: 6px;
-  font-weight: 500;
   color: #FF9500;
 }
 
 .main-scroll {
-  overflow: auto;
-  scrollbar-width: none;
   flex-basis: 0;
   flex-grow: 1;
-}
-
-.main-scroll::-webkit-scrollbar {
-  display: none;
 }

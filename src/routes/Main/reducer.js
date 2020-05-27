@@ -49,6 +49,7 @@ switch (type) {
     const selected = state.selected.filter(cid => cid !== payload.body)
     return {
       ...state,
+      update: true,
       counters: state.counters.filter(c => c.id !== payload.body),
       selected,
       selectMode: selected.length > 0,
