@@ -68,7 +68,7 @@ class CounterItem extends Component {
           <div className='container' />
           <div>
             <div className='container'>
-              <div onClick={() => this.handleChangeClick(-1)} className='container center'>
+              <div id="minus" onClick={() => this.handleChangeClick(-1)} className='container center'>
                 {counter.count <= 0 ? <MinusWhite /> : <Minus />}
               </div>
               <p
@@ -76,7 +76,7 @@ class CounterItem extends Component {
               >
                 {counter.count}
               </p>
-              <div onClick={() => this.handleChangeClick(1)} className='container center'>
+              <div id="plus" onClick={() => this.handleChangeClick(1)} className='container center'>
                 <Plus />
               </div>
             </div>

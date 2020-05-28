@@ -162,6 +162,7 @@ class OptionBar extends Component {
           {selectMode && (
             <Fragment>
               <Button
+                id="delete"
                 white
                 onClick={this.handleRemoveClick}
                 disabled={isFetching}
@@ -182,12 +183,13 @@ class OptionBar extends Component {
                 onVisibleChange={this.setToolTipVisible}
                 transitionName='rc-tooltip-zoom'
               >
-                <Button white><Share /></Button>
+                <Button white id="share"><Share /></Button>
               </Tooltip>
             </Fragment>
           )}
           <div className='container' />
           <Button
+            id="add"
             disabled={isFetching}
             onClick={this.handleAddClick}
           >
