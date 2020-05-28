@@ -5,3 +5,69 @@
 .optionbar-separator {
   margin-right: 18px;
 }
+
+.copy-preview {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  margin-left: 28px;
+  padding: 5px;
+  width: 100px;
+  height: 100px;
+  overflow: auto;
+}
+
+.copy-preview-text {
+  font-size: 9px;
+  color: #000000;
+  margin-bottom: 5px;
+  line-height: 11px;
+}
+
+.copy-tooltip {
+  display: block;
+  position: absolute;
+  left: 0px !important;
+  z-index: 1070;
+  box-shadow: 0px 24px 38px rgba(0, 0, 0, 0.14);
+  border-radius: 10px;
+  margin: 0px 16px;
+}
+
+.copy-tooltip-hidden {
+  display: none;
+}
+
+.copy-tooltip-inner {
+  padding: 13px 18px;
+  background-color: #FAFAFA;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.copy-tooltip-text {
+  margin: 0;
+  width: 170px;
+  text-align: start;
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.copy-tooltip-separator {
+  margin: 13px 0px;
+}
+
+.copy-tooltip-arrow {
+  position: absolute;
+  left: 121px;
+  border-color: transparent;
+  border-top-color: #FAFAFA;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  bottom: -5px;
+  margin-left: -6px;
+  border-width: 6px 6px 0;
+}

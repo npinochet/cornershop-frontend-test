@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap_white.css';
 
 import { fetchCounterRemoveSelected, clearSelectCounter } from '../../routes/Main/actions';
 import { setAddModal } from '../AddModal/actions';
@@ -14,7 +16,87 @@ import Button from '../Button';
 
 import './style.css';
 
+
+class CopyToolTipOverlay extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { copied: false }
+  }
+
+  handleCopyClipboard = () => {
+    const { selected, counters, setToolTipVisible } = this.props
+
+    const text = counters
+      .filter(c => selected.includes(c.id))
+      .map(c => `${c.count} X ${c.title}`)
+      .join('\n')
+
+    navigator.clipboard.writeText(text)
+    setToolTipVisible(false)
+
+    this.setState(state => ({
+      ...state,
+      copied: true,
+    }))
+
+    setTimeout(() => {
+      this.setState(state => ({
+        ...state,
+        copied: false,
+      }))
+    }, 800)
+  }
+
+  render() {
+    const { selected, counters } = this.props
+    const { copied } = this.state
+
+    return (
+      <div className='container'>
+        <div className='container column'>
+          <p className='copy-tooltip-text'>
+            {copied ? 'Copied!' :
+              `Share ${selected.length} counter${selected.length > 1 ? 's' : ''}`
+            }
+          </p>
+          <div className='copy-tooltip-separator'>
+            <Button
+              white
+              disabled={copied}
+              onClick={this.handleCopyClipboard}
+            >
+              Copy
+            </Button>
+          </div>
+        </div>
+        <div className='copy-preview'>
+          {counters.filter(c => selected.includes(c.id)).map(c => (
+            <p
+              key={c.id}
+              className='bold copy-preview-text'
+            >
+              {`${c.count} X ${c.title}`}
+            </p>
+          ))}
+        </div>
+      </div>
+    )
+  }
+}
+
 class OptionBar extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { toolTipVisible: false }
+  }
+
+  setToolTipVisible = visible => {
+    this.setState(state => ({
+      ...state,
+      toolTipVisible: visible,
+    }))
+  }
+
   handleAddClick = () => {
     this.props.setAddModal(true)
   }
@@ -63,7 +145,14 @@ class OptionBar extends Component {
   }
 
   render() {
-    const { isFetching, show, selectMode } = this.props
+    const {
+      isFetching,
+      show,
+      selectMode,
+      counters,
+      selected,
+    } = this.props
+  
     if (!show) return <Fragment />
 
     return (
@@ -80,7 +169,21 @@ class OptionBar extends Component {
                 <Remove />
               </Button>
               <div className="optionbar-separator" />
-              <Button white><Share /></Button>
+              <Tooltip
+                prefixCls='copy-tooltip'
+                placement='top'
+                trigger={'click'}
+                overlay={<CopyToolTipOverlay
+                  selected={selected}
+                  counters={counters}
+                  setToolTipVisible={this.setToolTipVisible}
+                />}
+                visible={this.state.toolTipVisible}
+                onVisibleChange={this.setToolTipVisible}
+                transitionName='rc-tooltip-zoom'
+              >
+                <Button white><Share /></Button>
+              </Tooltip>
             </Fragment>
           )}
           <div className='container' />

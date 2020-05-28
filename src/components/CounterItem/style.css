@@ -14,6 +14,10 @@
   align-items: center;
 }
 
+.counter-title-text {
+  text-align: start;
+}
+
 .counter-count-text {
   font-weight: 600;
   font-size: 20px;

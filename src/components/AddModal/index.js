@@ -21,7 +21,7 @@ const drinkExamples = [
   'Cup of coffee',
   'Glasses of water',
   'Cans of cola',
-  'Milk shakes'
+  'Milk shakes',
 ]
 
 const foodExamples = [
@@ -29,6 +29,8 @@ const foodExamples = [
   'Cupcakes',
   'Chicken wings',
   'Chocolate',
+  'Apples',
+  'Salads',
 ]
 
 const miscExamples = [
@@ -42,7 +44,44 @@ const styles = {
   text: {
     margin: '0px 16px',
   },
+  exampleSubTitle: {
+    margin: '28px 0px',
+  }
 }
+
+const ExampleContent = ({ handleBadgeClick }) => (
+  <div>
+    <p className='small' style={styles.exampleSubTitle}>
+      Select an example to add it to your counters.
+    </p>
+    <div>
+      <p className='bold'>Drinks</p>
+      <div className='hide-scroll container'>
+        {drinkExamples.map(t => (
+          <Badge key={t} onClick={handleBadgeClick}>
+            {t}
+          </Badge>
+        ))}
+      </div>
+      <p className='bold'>Food</p>
+      <div className='hide-scroll container'>
+        {foodExamples.map(t => (
+          <Badge key={t} onClick={handleBadgeClick}>
+            {t}
+          </Badge>
+        ))}
+      </div>
+      <p className='bold'>Misc</p>
+      <div className='hide-scroll container'>
+        {miscExamples.map(t => (
+          <Badge key={t} onClick={handleBadgeClick}>
+            {t}
+          </Badge>
+          ))}
+      </div>
+    </div>
+  </div>
+)
 
 class AddModal extends Component {
   constructor(props) {
@@ -141,40 +180,7 @@ class AddModal extends Component {
           </div>
           <hr className='addmodal-dividor' />
           {isFetching ? <Loading /> : (
-            example ? (
-              <div>
-                <p className='small' style={{margin: '28px 0px'}}>
-                  Select an example to add it to your counters.
-                </p>
-                <div>
-                  <p className='bold'>Drinks</p>
-                  <div className='hide-scroll container'>
-                    {drinkExamples.map(t => (
-                      <Badge key={t} onClick={this.handleBadgeClick}
-                      >
-                        {t}
-                      </Badge>
-                    ))}
-                  </div>
-                  <p className='bold'>Food</p>
-                  <div className='hide-scroll container'>
-                    {foodExamples.map(t => (
-                      <Badge key={t} onClick={this.handleBadgeClick}>
-                        {t}
-                      </Badge>
-                    ))}
-                  </div>
-                  <p className='bold'>Misc</p>
-                  <div className='hide-scroll container'>
-                    {miscExamples.map(t => (
-                      <Badge key={t} onClick={this.handleBadgeClick}>
-                        {t}
-                      </Badge>
-                      ))}
-                  </div>
-                </div>
-              </div>
-            ) : (
+            example ? <ExampleContent handleBadgeClick={this.handleBadgeClick} /> : (
               <form onSubmit={this.handleSaveClick}>
                 <p className='name-label bold'>Name</p>
                 <div className='input-content name-input' onClick={this.handleInputClick}>

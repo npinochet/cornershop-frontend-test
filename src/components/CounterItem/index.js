@@ -63,7 +63,7 @@ class CounterItem extends Component {
           onMouseLeave={onMouseLeave}
         >
           <div className='counter-title'>
-            <p>{counter.title}</p>
+            <p className='counter-title-text'>{counter.title}</p>
           </div>
           <div className='container' />
           <div>

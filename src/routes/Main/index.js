@@ -80,7 +80,7 @@ class MainScreen extends Component {
       ...state,
       refreshing: true,
     }))
-    await this.refreshCounters()
+    await this.refreshCounters(true)
     this.setState(state => ({
       ...state,
       refreshing: false,
