@@ -1,5 +1,7 @@
 # Cornershop Frontend Test
 
+![[End-to-end Tests](https://github.com/npinochet/cornershop-frontend-test/workflows/End-to-end%20Tests/badge.svg)](https://github.com/npinochet/cornershop-frontend-test/actions?query=workflow%3A%22End-to-end+tests%22)
+
 #### ⚠️ Before you begin
 
 > Create a new git repository on the root of this folder, upload it to Github, and invite [@RoHerrera](https://github.com/RoHerrera) and [@varellanov](https://github.com/varellanov) as collaborators.
