@@ -49,6 +49,7 @@ describe("Broad behavioral test", () => {
   })
   it("Copy it's content with the share button", () => {
     cy.get("button#share").click()
+    cy.wait(1000)
     cy.get("button").contains("Copy").click()
   })
   it("Delete mutiple counters", () => {

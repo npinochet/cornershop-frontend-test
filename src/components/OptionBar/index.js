@@ -31,7 +31,14 @@ class CopyToolTipOverlay extends Component {
       .map(c => `${c.count} X ${c.title}`)
       .join('\n')
 
-    navigator.clipboard.writeText(text)
+    // copy to clipboard hack from https://stackoverflow.com/a/46118025/5748834
+    const dummy = document.createElement("textarea")
+    document.body.appendChild(dummy)
+    dummy.value = text
+    dummy.select()
+    document.execCommand("copy")
+    document.body.removeChild(dummy)
+
     setToolTipVisible(false)
 
     this.setState(state => ({
@@ -51,14 +58,20 @@ class CopyToolTipOverlay extends Component {
     const { selected, counters } = this.props
     const { copied } = this.state
 
+    if (copied) return (
+      <div className='container center'>
+        <p className='copy-tooltip-text'>Copied!</p>
+        <div className='copy-preview hide'></div>
+      </div>
+    )
+
     return (
       <div className='container'>
         <div className='container column'>
           <p className='copy-tooltip-text'>
-            {copied ? 'Copied!' :
-              `Share ${selected.length} counter${selected.length > 1 ? 's' : ''}`
-            }
+            Share {selected.length} counter{selected.length > 1 ? 's' : ''}
           </p>
+          <div className="container" />
           <div className='copy-tooltip-separator'>
             <Button
               white

@@ -12,9 +12,11 @@
 
 * I used plain old css and Flexbox since that's what I'm used to. There is a main stylesheet in 'src' and local stylesheets with every component. I may use some inline styles if it's something minor, since it's more practical.
 
-* I used Redux to keep the main state of the app, and to make API calls, because that's what I'm used to, also I think it works well enough.
+* I used Redux to keep the main state of the app, and to make API calls, because that's what I'm used to, I think it works well enough.
 
 * I made most of my commits on 'master' with simple messages, since git practices like Git Flow are meant to be use with teams where a lot of cocurrent code is being written.
+
+* I used Cypress to make some simple and general behavioral tests, which covers cases from creating counters, adding +1, deleting, searching and sharing.
 
 ## Overview
 

@@ -1,5 +1,5 @@
 const isProduction = process.env.NODE_ENV === 'production'
-const baseUrl = isProduction ? process.env.REACT_APP_API_URL : 'http://192.168.1.106:3001'
+const baseUrl = isProduction ? process.env.REACT_APP_API_URL : 'http://localhost:3001'
 
 const fetchWithTimeout = (url, options, timeout = 7000) => (
   Promise.race([

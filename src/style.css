@@ -105,6 +105,12 @@ p.bold {
   justify-content: space-evenly;
 }
 
+.hide {
+  opacity: 0;
+  position: relative;
+  width: 0;
+}
+
 /* Global Classes */
 
 .input-content {
