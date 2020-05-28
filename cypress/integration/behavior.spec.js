@@ -44,7 +44,7 @@ describe("Broad behavioral test", () => {
   })
   it("Select a counter pressing for 300ms", () => {
     cy.get("div.counter-content").first().trigger('mousedown')
-    cy.wait(350)
+    cy.wait(500)
     cy.get("div.counter-content").first().trigger('mouseleave')
   })
   it("Copy it's content with the share button", () => {
@@ -55,10 +55,10 @@ describe("Broad behavioral test", () => {
   it("Delete mutiple counters", () => {
     cy.get("div.counter-content").eq(0).click()
     cy.get("div.counter-content").eq(1).trigger('mousedown')
-    cy.wait(350)
+    cy.wait(500)
     cy.get("div.counter-content").eq(1).trigger('mouseleave')
     cy.get("div.counter-content").eq(2).trigger('mousedown')
-    cy.wait(350)
+    cy.wait(500)
     cy.get("div.counter-content").eq(2).trigger('mouseleave')
 
     cy.get("button#delete").click()
